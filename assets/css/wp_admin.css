@@ -1,0 +1,13 @@
+.wp-picker-container input.forum_color {
+    width: 80px;
+}
+
+.error_text {
+  color: red;
+  font-size:medium;
+}
+
+.forum_admin_page {
+  background: #fff;
+  padding: 5px;
+}

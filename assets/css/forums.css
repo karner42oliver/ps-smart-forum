@@ -1,0 +1,104 @@
+.psforum {
+	--psforum-line: #d1d5db;
+	font: inherit;
+	color: inherit;
+	margin-block: 1.5rem;
+	min-width: 0;
+	overflow-wrap: anywhere;
+	scroll-margin-top: 5rem;
+}
+.psforum *, .psforum *::before, .psforum *::after { box-sizing: border-box; }
+.psforum [hidden] { display: none !important; }
+.psforum h3, .psforum h4 { margin: 0; line-height: 1.4; }
+.psforum h3 { font-size: 1.25em; }
+.psforum h4 { font-size: 1.05em; }
+.psforum p { margin-block: .75rem; }
+.psforum a { text-underline-offset: .15em; }
+.psforum a:focus-visible, .psforum button:focus-visible, .psforum input:focus-visible, .psforum textarea:focus-visible {
+	outline: 3px solid currentColor;
+	outline-offset: 3px;
+}
+.psforum-heading, .psforum-actions, .psforum-pagination, .psforum .forum-post-meta {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: .75rem;
+}
+.psforum-heading {
+	justify-content: space-between;
+	background: var(--psforum-header, transparent);
+	padding: 1rem;
+	border-radius: .6rem;
+	margin-block: 1rem;
+}
+.psforum-actions { margin-block: 1rem; }
+.psforum-actions form { margin: 0; }
+.psforum button, .psforum .psforum-button {
+	font: inherit;
+	line-height: 1.4;
+	padding: .55rem .85rem;
+	min-height: 2.75rem;
+	border: 1px solid currentColor;
+	border-radius: .4rem;
+	cursor: pointer;
+	text-decoration: none;
+}
+.psforum button:disabled { opacity: .6; cursor: wait; }
+.psforum [aria-busy="true"] > button[type="submit"] { opacity: .6; }
+.psforum-pagination { justify-content: space-between; font-size: .9em; margin-block: 1rem; }
+.psforum-topics, .psforum-results { margin: 0; padding: 0; list-style: none; }
+.psforum-topic-card, .psforum-results > li {
+	border: var(--psforum-border-width, 1px) solid var(--psforum-border, var(--psforum-line));
+	border-radius: .6rem;
+	padding: 1rem;
+	margin-block: .5rem;
+	background: var(--psforum-row, transparent);
+}
+.psforum-topic-card:nth-child(even) { background: var(--psforum-alternate, transparent); }
+.psforum-topic-card { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.psforum-topic-summary { display: grid; gap: .3rem; font-size: .9em; }
+.psforum-badge { display: inline-block; font-size: .8em; padding: .15rem .5rem; border: 1px solid currentColor; border-radius: 1rem; }
+.psforum .forum-topic-meta { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; list-style: none; padding: 0; font-size: .9em; }
+.psforum .forum-post {
+	display: grid;
+	grid-template-columns: minmax(7rem, 20%) minmax(0, 1fr);
+	border: var(--psforum-border-width, 1px) solid var(--psforum-border, var(--psforum-line));
+	border-radius: .6rem;
+	margin-block: 1rem;
+	padding: 1rem;
+	gap: 1rem;
+	background: var(--psforum-alternate, transparent);
+	scroll-margin-top: 5rem;
+}
+.psforum .forum-post:nth-child(even) { background: var(--psforum-row, transparent); }
+.psforum .forum-post-author { display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; }
+.psforum .forum-post-author img { border-radius: 50%; width: 48px; height: 48px; }
+.psforum-post-main { min-width: 0; }
+.psforum-post-content img, .psforum-preview img { max-width: 100%; height: auto; }
+.psforum-post-content pre, .psforum-preview pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+.psforum .forum-post-meta { border-top: 1px solid var(--psforum-line); margin-top: 1rem; padding-top: .75rem; font-size: .85em; }
+.psforum-field { display: grid; gap: .5rem; }
+.psforum-field label, .psforum-search label { font-weight: 600; }
+.psforum .psforum-field input, .psforum .psforum-field textarea, .psforum input[type="search"] {
+	width: 100%;
+	max-width: 100%;
+	min-width: 0;
+	font: inherit;
+	padding: .6rem;
+	border: 1px solid var(--psforum-line);
+	border-radius: .4rem;
+}
+.psforum textarea { resize: vertical; }
+.psforum small { font-size: .85em; }
+.psforum-search-fields { display: flex; gap: .5rem; margin-top: .5rem; }
+.psforum-preview, .psforum-notice, .psforum-empty { padding: 1rem; border: 1px solid var(--psforum-line); border-radius: .4rem; }
+.psforum-notice { border-inline-start: .25rem solid currentColor; }
+.psforum-preview { margin-top: 1rem; }
+@media (max-width: 600px) {
+	.psforum .forum-post { grid-template-columns: minmax(0, 1fr); }
+	.psforum .forum-post-author { flex-direction: row; align-items: center; }
+	.psforum-topic-card { flex-direction: column; align-items: stretch; }
+	.psforum-heading { align-items: flex-start; }
+	.psforum-search-fields { flex-wrap: wrap; }
+	.psforum-search-fields button { width: 100%; }
+}
