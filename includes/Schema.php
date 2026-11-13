@@ -64,6 +64,10 @@ KEY post_forum_ID (post_forum_ID)
 				wp_die(esc_html__('Die Forum-Datenbank konnte nicht eingerichtet werden.', 'psforum'), '', array('response' => 500));
 			}
 		}
+		$request_index = $wpdb->get_results("SHOW INDEX FROM {$prefix}forums_posts WHERE Key_name = 'request_key'", ARRAY_A);
+		if ($wpdb->last_error !== '' || count($request_index) !== 1 || (int) $request_index[0]['Non_unique'] !== 0 || $request_index[0]['Column_name'] !== 'post_request_key') {
+			wp_die(esc_html__('Der Schutz vor doppelten Beiträgen konnte nicht eingerichtet werden.', 'psforum'), '', array('response' => 500));
+		}
 		update_site_option('forums_schema_version', VERSION);
 		update_site_option('forums_version', VERSION);
 		update_site_option('forums_installed', 'yes');

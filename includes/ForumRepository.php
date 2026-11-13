@@ -26,7 +26,7 @@ final class ForumRepository {
 		return count($tables) === 3 && count(array_filter($tables, static fn(array $table): bool => strtoupper((string) $table['ENGINE']) === 'INNODB')) === 3;
 	}
 
-	public function atomic(int $forum_id, callable $operation) {
+	public function atomic(int $forum_id, callable $operation): mixed {
 		if ($this->writing) {
 			throw new \LogicException('Nested Quick Forum writes are not supported.');
 		}

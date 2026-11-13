@@ -419,6 +419,9 @@ try {
 		try {
 			\PSource\QuickForum\save_setting($key, '30_minutes');
 			wp_set_current_user($users['author']);
+			$_GET = array('action' => 'edit_topic');
+			$_POST = array();
+			rejected(static fn() => validate_front_request($forum_id), 400);
 			post_request('edit_topic_process', $forum_id);
 			$service->rename_topic($forum_id, $topic_id, '<b>Renamed safely</b>');
 			expect($repository->topic($topic_id)['topic_title'] === 'Renamed safely', 'Title edit did not sanitize and persist.');
@@ -479,6 +482,22 @@ try {
 		check_database_result($wpdb->insert($wpdb->base_prefix . 'forums', array('forum_blog_ID' => get_current_blog_id(), 'forum_name' => 'Isolated fixture')));
 		$second = (int) $wpdb->insert_id;
 		$forums[] = $second;
+		global $post, $wp_query;
+		$saved_post = $post ?? null;
+		$saved_query = $wp_query;
+		$wp_query = new \WP_Query();
+		$wp_query->is_singular = true;
+		$post = (object) array('post_content' => '[forum id="' . $forum_id . '"] [forum id="' . $second . '"]');
+		try {
+			$_POST = array();
+			$_GET = array('fid' => (string) $second, 'action' => 'new_topic');
+			\PSource\QuickForum\Plugin::instance()->front()->process_request();
+			$_GET['action'] = 'edit_topic';
+			rejected(static fn() => \PSource\QuickForum\Plugin::instance()->front()->process_request(), 400);
+		} finally {
+			$post = $saved_post;
+			$wp_query = $saved_query;
+		}
 		$_GET = array('fid' => (string) $forum_id, 'topic' => (string) $topic_id, 'forum_page' => '2');
 		$_POST = array();
 		$html = forum_shortcode(array('id' => (string) $second));

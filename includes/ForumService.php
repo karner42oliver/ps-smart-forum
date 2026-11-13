@@ -7,7 +7,7 @@ defined('ABSPATH') || exit;
 final class ForumService {
 	public function __construct(private ForumRepository $repository, private Settings $settings) {}
 
-	private function write(int $forum_id, callable $operation) {
+	private function write(int $forum_id, callable $operation): mixed {
 		return $this->repository->atomic($forum_id, $operation);
 	}
 

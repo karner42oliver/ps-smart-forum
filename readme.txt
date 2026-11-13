@@ -3,7 +3,7 @@ Contributors: DerN3rd (PSOURCE)
 Tags: multisite, suche, netzwerksuche
 Requires at least: 4.9
 Tested up to: 5.6
-Stable tag: 1.3.0
+Stable tag: 1.0.0
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -208,49 +208,6 @@ $_POST['_psforum_request'] übergeben. Er gehört zum Formular, nicht zur Sitzun
 Wiederholungen desselben Formulars mit gleichem Inhalt liefern denselben Datensatz.
 
 == ChangeLog ==
-
-= 1.3.0 =
-
-* Responsive, semantische Frontend-Templates statt Layouttabellen, center-Tags und verstreuter Inline-Styles.
-* Beschriftete Formulare, sichtbarer Tastaturfokus und status-/fehlerbezogene Meldungen.
-* Unabhängige Ansichten für mehrere Forum-Shortcodes auf derselben Seite.
-* InnoDB-Transaktionen, serialisierte Schreibaktionen und dauerhafter Doppelabsendeschutz.
-* Themen anheften/loslösen, serverseitig gefilterte Beitragsvorschau und direkte Links zur letzten Antwort.
-* Thementitel bearbeiten; Berechtigungsregel durch die Administration einstellbar.
-
-= 1.2.0 =
-
-* Datenzugriff, Schreibaktionen, Request-Verarbeitung und Templates in getrennte Komponenten aufgeteilt.
-* Schlanker Plugin-Bootstrap; wiederverwendbare Formulare für Foren und Beiträge.
-* SQL-Abfragen zentralisiert und auf die aktuelle Website begrenzt; Suche lädt Thementitel ohne zusätzliche Abfrage pro Treffer.
-* Reine Ausgabe ohne Datenänderungen; bisherige namespaced Funktionen als Adapter erhalten.
-* Regressionstests für die Trennung von Verarbeitung und Ausgabe, Pagination und Repository-Zuordnungen ergänzt.
-
-= 1.1.0 =
-
-* PHP-Mindestversion 8.0; Modernisierung für PHP 8.5.
-* Plugin-Funktionen im Namespace PSource\QuickForum; Hook-Namen, Shortcodes und Datenbanktabellen bleiben erhalten.
-* WordPress-Colorpicker statt mitgeliefertem Farbtastic; ordnerunabhängige Asset- und Sprachdateipfade.
-* POST- und Nonce-Prüfungen für schreibende Aktionen; serverseitige Benutzer-, Rollen- und Multisite-Zuordnungsprüfung.
-* Sichere HTML-Filterung auch für vorhandene Beiträge; validierte Farben und Einstellungen.
-* Versionierte Datenbankpflege mit dbDelta und zusätzlichen Indizes. Bestehende Tabellen und deren Storage-Engine bleiben erhalten.
-* Eigene Integrationen müssen PHP-Funktionsaufrufe und Callbacks auf den neuen Namespace umstellen.
-
-= 1.0.2 =
-
-* PhP 8.3 Updates
-* jQuery 3.0 Updates
-* Updater 1.3
-* Linkanpassungen
-* Docs gestartet
-
-= 1.0.1 =
-
-* Languagefiles: it_IT, en_US, fr_FR
-* Einige Textanpassungen
-* Mit besseren Admin-Style begonnen
-* Neu Strukturierung des Plugins begonnen
-* Fix: Unsafe jQuery plugin
 
 = 1.0.0 =
 * Release

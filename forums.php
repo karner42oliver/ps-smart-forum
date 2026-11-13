@@ -5,7 +5,7 @@ Plugin URI: https://cp-psource.github.io/pscp-forum/
 Description: Ermöglicht jedem Blog, eigene Foren zu haben - eingebettet in jede Seite oder jeden Beitrag.
 Author: PSOURCE
 Author URI: https://github.com/cp-psource
-Version: 1.3.0
+Version: 1.0.0
 Requires at least: 4.9
 Requires PHP: 8.0
 Text Domain: psforum
@@ -34,7 +34,7 @@ namespace PSource\QuickForum;
 
 defined('ABSPATH') || exit;
 
-const VERSION = '1.3.0';
+const VERSION = '1.0.0';
 const PLUGIN_FILE = __FILE__;
 
 if (!defined('FORUM_DEMO_FOR_NON_SUPPORTER')) {

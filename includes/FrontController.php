@@ -17,8 +17,17 @@ final class FrontController {
 	public function process_request(): void {
 		global $post;
 		$action = request_value($_GET, 'action');
-		if (!is_singular() || !$post || (!$this->is_write($action) && $action !== 'preview_post')) {
+		$views = array('new_topic', 'edit_topic', 'edit_post', 'delete_post', 'delete_topic');
+		if (!is_singular() || !$post || (!$this->is_write($action) && $action !== 'preview_post' && !in_array($action, $views, true))) {
 			return;
+		}
+		$requested_forum = request_value($_POST, 'fid', request_value($_GET, 'fid'));
+		if ($requested_forum === '') {
+			$topic_id = absint(request_value($_GET, 'topic', request_value($_GET, 'tid')));
+			$topic = $topic_id ? $this->repository->topic($topic_id) : null;
+			if ($topic) {
+				$requested_forum = (string) $topic['topic_forum_ID'];
+			}
 		}
 		preg_match_all('/' . get_shortcode_regex(array('forum')) . '/s', $post->post_content, $matches, PREG_SET_ORDER);
 		foreach ($matches as $match) {
@@ -29,7 +38,7 @@ final class FrontController {
 			$id = is_array($atts) ? ($atts['id'] ?? $atts[0] ?? '') : '';
 			if (is_string($id) && preg_match('/^:?[1-9][0-9]*$/', $id)) {
 				$forum_id = absint(ltrim($id, ':'));
-				if (request_value($_POST, 'fid') === '' || absint(request_value($_POST, 'fid')) === $forum_id) {
+				if ($requested_forum === '' || absint($requested_forum) === $forum_id) {
 					if ($action === 'preview_post') {
 						require_forum($forum_id);
 						require_member();
@@ -37,13 +46,17 @@ final class FrontController {
 						nocache_headers();
 						wp_send_json_success(array('html' => forums_display_post_content(request_value($_POST, 'post_content'))));
 					}
-					$this->process($forum_id);
+					if (in_array($action, $views, true)) {
+						validate_front_request($forum_id);
+					} else {
+						$this->process($forum_id);
+					}
 					return;
 				}
 			}
-			if ($matches || request_value($_POST, 'fid', request_value($_GET, 'fid')) !== '') {
-				wp_die(esc_html__('Das angeforderte Forum ist auf dieser Seite nicht eingebettet.', 'psforum'), '', array('response' => 404));
-			}
+		}
+		if ($matches || request_value($_POST, 'fid', request_value($_GET, 'fid')) !== '') {
+			wp_die(esc_html__('Das angeforderte Forum ist auf dieser Seite nicht eingebettet.', 'psforum'), '', array('response' => 404));
 		}
 	}
 

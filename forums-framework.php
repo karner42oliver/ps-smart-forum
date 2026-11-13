@@ -136,6 +136,9 @@ function can_edit_topic(array $topic): bool {
 }
 
 function require_topic_editor(int $forum_id, int $topic_id): void {
+	if ($topic_id < 1) {
+		wp_die(esc_html__('Unvollständige Anfrage.', 'psforum'), '', array('response' => 400));
+	}
 	require_forum($forum_id, $topic_id);
 	if (!can_edit_topic(Plugin::instance()->repository()->topic($topic_id, $forum_id))) {
 		wp_die(esc_html__('Du darfst diesen Thementitel nicht bearbeiten.', 'psforum'), '', array('response' => 403));
@@ -197,9 +200,6 @@ function validate_front_request(int $forum_id): void {
 			|| (in_array($action, array('edit_post_process', 'delete_post_process'), true) && !$post_id)) {
 			wp_die(esc_html__('Unvollständige Anfrage.', 'psforum'), '', array('response' => 400));
 		}
-		if ($action === 'edit_topic') {
-			require_topic_editor($forum_id, absint(request_value($_GET, 'tid')));
-		}
 		require_front_action($action, $forum_id, $topic_id, $post_id);
 		if (request_value($_POST, 'fid') !== '' && absint(request_value($_POST, 'fid')) !== $forum_id) {
 			wp_die(esc_html__('Ungültiges Forum.', 'psforum'), '', array('response' => 400));
@@ -212,6 +212,9 @@ function validate_front_request(int $forum_id): void {
 		if (in_array($action, array('new_post_process', 'edit_post_process'), true) && !isset($_POST['Cancel']) && !isset($_POST['post_content'])) {
 			wp_die(esc_html__('Der Beitrag fehlt.', 'psforum'), '', array('response' => 400));
 		}
+	}
+	if ($action === 'edit_topic') {
+		require_topic_editor($forum_id, absint(request_value($_GET, 'tid')));
 	}
 	if (in_array($action, array('edit_post', 'delete_post', 'delete_topic'), true)) {
 		$topic_id = absint(request_value($_GET, 'tid'));
