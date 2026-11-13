@@ -566,5 +566,5 @@ msgstr "PSOURCE"
 
 #. Author URI of the plugin/theme
 #, fuzzy
-msgid "https://github.com/cp-psource"
-msgstr "https://github.com/cp-psource"
+msgid "https://psource.eimen.net"
+msgstr "https://psource.eimen.net"

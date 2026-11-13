@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Quick Forum
-Plugin URI: https://cp-psource.github.io/pscp-forum/
+Plugin URI: https://psource.eimen.net/psource/quick-forum/
 Description: Ermöglicht jedem Blog, eigene Foren zu haben - eingebettet in jede Seite oder jeden Beitrag.
 Author: PSOURCE
-Author URI: https://github.com/cp-psource
+Author URI: https://psource.eimen.net
 Version: 1.0.0
 Requires at least: 4.9
 Requires PHP: 8.0
@@ -13,7 +13,7 @@ Domain Path: /languages
 */
 
 /*
-Copyright 2020-2026 PSOURCE (https://github.com/cp-psource)
+Copyright 2020-2026 PSOURCE (https://psource.eimen.net)
 Author - DerN3rd
 
 This program is free software; you can redistribute it and/or modify
